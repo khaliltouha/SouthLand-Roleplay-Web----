@@ -3,10 +3,11 @@ header {
   top: 0; right: 0; left: 0;
   z-index: 1000;
   width: 100vw;
-  background: rgba(62, 44, 35, 0.95); /* بني غامق بخفة شفافية */
-  border-bottom: 1px solid #C9B8AA;    /* بني فاتح للحدود */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: #FFFFFF;             /* خلفية بيضاء ناعمة */
+  border-bottom: 1px solid #DDDDDD;/* حد رمادي فاتح */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
 .header-inner {
   display: flex;
   flex-direction: row;
@@ -17,14 +18,16 @@ header {
   width: 100%;
   gap: 2vw;
 }
+
 .logo {
   font-size: 2.1rem;
   font-weight: 900;
-  color: #A47148; /* بني دافئ للوجو */
+  color: #A47148;   /* بني فاتح محترم للوجو */
   letter-spacing: 1px;
   white-space: nowrap;
   flex-shrink: 0;
 }
+
 nav {
   flex: 1 1 auto;
   display: flex;
@@ -32,6 +35,7 @@ nav {
   justify-content: center;
   min-width: 0;
 }
+
 .nav-links {
   list-style: none;
   display: flex;
@@ -41,10 +45,10 @@ nav {
   margin: 0;
   padding: 0;
   overflow-x: auto;
-  background: none;
 }
+
 .nav-links a {
-  color: #FFFFFF;              /* نص بني غامق */
+  color: #2E2E2E;                  /* نص رمادي غامق */
   font-weight: 700;
   font-size: 1.08rem;
   padding: 0.5rem 0.9rem;
@@ -53,11 +57,13 @@ nav {
   border-radius: 8px;
   transition: color 0.3s, background 0.3s;
 }
+
 .nav-links a:hover,
 .nav-links a.active-link {
-  color: #fff;
-  background: rgba(163, 201, 168, 0.2); /* أخضر ثانوي شفاف عند التحويم */
+  color: #FFFFFF;
+  background: #A47148;             /* بني فاتح عند التحويم */
 }
+
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -65,30 +71,34 @@ nav {
   right: 0;
   width: 0;
   height: 2px;
-  background: #A3C9A8; /* الأخضر الثانوي */
+  background: #6D6D6D;             /* خط تحت الرابط رمادي فخم */
   transition: width 0.3s;
 }
+
 .nav-links a:hover::after,
 .nav-links a.active-link::after {
   width: 100%;
 }
+
 .auth-area {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-shrink: 0;
 }
+
 #user-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #8B5E3C; /* بني راقي للإطار */
+  border: 2px solid #A47148;       /* إطار بني */
   object-fit: cover;
 }
+
 #logout-btn {
-  background: #3E2C23;
-  color: #C9B8AA;
-  border: 1px solid #8B5E3C;
+  background: #F5F5F5;
+  color: #6D6D6D;
+  border: 1px solid #DDDDDD;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -103,6 +113,7 @@ nav {
   background: #8C3A2B;
   color: #fff;
 }
+
 #discord-login {
   display: flex;
   align-items: center;
@@ -111,27 +122,29 @@ nav {
   font-weight: 700;
   padding: 10px 18px;
   border-radius: 8px;
-  border: 1px solid #A3C9A8;
-  background: #A3C9A8; /* أخضر ثانوي */
-  color: #2E2A26;
+  border: 1px solid #A47148;
+  background: #A47148;             /* بني فاتح */
+  color: #fff;
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
   min-width: 160px;
   justify-content: center;
 }
 #discord-login:hover {
-  background: #89B48E;
+  background: #8B5E3C;             /* بني أغمق عند التحويم */
   color: #fff;
 }
+
 .mobile-menu-toggle {
   display: none;
   background: none;
   border: none;
-  color: #F5F2EE;
+  color: #6D6D6D;
   font-size: 2rem;
   cursor: pointer;
   margin-right: 1rem;
 }
+
 @media (max-width: 992px) {
   .header-inner {
     padding: 0 2vw;
@@ -145,12 +158,12 @@ nav {
     top: 70px;
     right: 0;
     left: 0;
-    background: #F5F2EE; /* فاتح مائل للبيج */
+    background: #FFFFFF;          /* قائمة بيضاء */
     flex-direction: column;
     align-items: stretch;
     text-align: center;
-    border-top: 1px solid #C9B8AA;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid #DDDDDD;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     z-index: 999;
     padding: 0;
   }
@@ -163,7 +176,7 @@ nav {
   .nav-links a {
     display: block;
     padding: 1rem;
-    border-bottom: 1px solid #C9B8AA;
+    border-bottom: 1px solid #DDDDDD;
     border-radius: 0;
   }
   .nav-links a::after {
