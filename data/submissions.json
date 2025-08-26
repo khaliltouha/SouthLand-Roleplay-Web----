@@ -43,7 +43,7 @@
     "id": "gang-application",
     "title": "طلب إنشاء عصابة",
     "image": "https://i.imgur.com/zIq3nGY.jpeg",
-    "status": "closed",
+    "status": "open",
     "webhook": "#ضع_رابط_ويبهوك_آخر_هنا",
     "questions": [
       {
