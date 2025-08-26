@@ -1,183 +1,92 @@
 <?php
-session_start();
-// تقدر تفعل السطر التالي لو حاب تربط بقاعدة بيانات أو ملف إعدادات
-// include_once 'config.php';
+// index.php - الصفحة الرئيسية للمتجر
+// ضع هذا الملف في نفس المجلد مع store.php و config.php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// مثال لمصفوفة مستخدم وهمي للاختبار (امسحها بعد ما تفعّل نظام الدخول الحقيقي)
-// $_SESSION['user'] = ['username' => 'Khalil', 'avatar' => 'images/avatar.png', 'email' => 'youremail@gmail.com'];
+// تضمين config بأمان لو موجود
+if (file_exists(__DIR__ . '/config.php')) {
+    $cfg = include __DIR__ . '/config.php';
+    if (is_array($cfg)) {
+        $allowed_emails = $cfg['allowed_emails'] ?? [];
+    }
+}
+
+// للاختبار مؤقتاً: فكّ التعليق لو تريد تجربة دخول وهمي
+// $_SESSION['user'] = ['username'=>'Khalil','email'=>'youremail@gmail.com','avatar'=>'images/avatar.png'];
+
+$user = $_SESSION['user'] ?? null;
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> SouthLand Rp </title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SouthLand Rp — الرئيسية</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style-fixed.css">
+  <style>
+    :root{--bg:#071226;--accent:#2f81f7;--card:#0f2233;--muted:#bfcbdc}
+    body{margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,#061026 0%, #071226 100%);color:#fff;min-height:100vh}
+    header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{font-weight:900;color:var(--accent);font-size:1.4rem}
+    .nav{display:flex;gap:12px;align-items:center}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 14px;border-radius:10px;color:var(--muted);text-decoration:none}
+    .hero{padding:60px 20px;text-align:center}
+    .hero h1{font-size:2.4rem;margin:0 0 8px;color:#fff}
+    .hero p{max-width:900px;margin:0 auto;color:var(--muted)}
+    .controls{margin-top:18px;display:flex;gap:10px;justify-content:center}
+    .primary{background:linear-gradient(90deg,#2d6cdf,#1246a3);border:none;padding:10px 18px;border-radius:10px;color:#fff}
+    .card{background:var(--card);max-width:1100px;margin:28px auto;padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    footer{text-align:center;padding:20px;color:var(--muted);margin-top:20px}
+    .profile{display:flex;gap:8px;align-items:center}
+    .avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.04)}
+    @media(max-width:700px){.hero h1{font-size:1.6rem}}
+  </style>
 </head>
 <body>
   <header>
-  <div class="header-inner">
-    <div class="logo">Southland Rp</div>
-    <nav>
-      <button class="mobile-menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
-      <ul class="nav-links">
-        <li><a href="#hero" class="active-link">الرئيسية</a></li>
-        <li><a href="#features">الميزات</a></li>
-        <li><a href="#about">من نحن</a></li>
-        <li><a href="#rules">القوانين</a></li>
-        <li><a href="#submissions">التقديمات</a></li>
-        <li><a href="#team">الفريق</a></li>
-        <li><a href="#contact">تواصل</a></li>
-      </ul>
-    </nav>
-    <div class="auth-area">
-      <?php if (isset($_SESSION['user'])): ?>
-        <!-- لو المستخدم متسجل يظهر ملفه الشخصي -->
-        <div id="user-profile">
-          <img id="user-avatar" src="<?php echo htmlspecialchars($_SESSION['user']['avatar'] ?? ''); ?>" alt="صورة المستخدم">
-          <span id="user-name"><?php echo htmlspecialchars($_SESSION['user']['username'] ?? ''); ?></span>
-          <form method="post" action="logout.php" style="display:inline;">
-            <button id="logout-btn" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+    <div class="brand">SouthLand Rp — Future Life</div>
+    <div class="nav">
+      <a class="btn" href="store.php">المتجر</a>
+      <a class="btn" href="#features">الميزات</a>
+      <?php if ($user): ?>
+        <div class="profile">
+          <img class="avatar" src="<?php echo htmlspecialchars($user['avatar'] ?? 'images/default-avatar.png'); ?>" alt="avatar">
+          <span><?php echo htmlspecialchars($user['username'] ?? $user['email']); ?></span>
+          <form method="post" action="logout.php" style="display:inline;margin-left:8px">
+            <button class="btn" type="submit">تسجيل الخروج</button>
           </form>
         </div>
       <?php else: ?>
-        <!-- لو مش مسجل يظهر زر تسجيل دخول (اربطه بملف OAuth او صفحة تسجيل) -->
-        <a href="oauth.php" id="discord-login" class="btn"><i class="fab fa-discord"></i> <span>تسجيل دخول ديسكورد</span></a>
+        <a class="btn" href="oauth.php">تسجيل دخول ديسكورد</a>
       <?php endif; ?>
     </div>
-  </div>
-</header>
+  </header>
+
   <main>
-    <section class="hero-section" id="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">SouthLand Roleplay <span class="highlight">Network</span></h1>
-        <p class="hero-subtitle">شبكة ساوث لاند هو احد افضل سيرفرات الحياة الواقعية المتواجدة داخل مجتمع اللعبة الذي يتميز بالسلاسة و المودات الحصرية</p>
-        <div class="hero-buttons">
-          <a href="#features" class="btn btn-primary">اكتشف الميزات</a>
-          <a href="store.php" class="btn btn-tertiary">المتجر</a>
-          <a href="#contact" class="btn btn-secondary">تواصل معنا</a>
-        </div>
+    <section class="hero">
+      <h1>مرحباً بك في شبكة SouthLand Roleplay</h1>
+      <p>تجربة ألعاب حياة واقعية مميزة — مابات ومودات حصرية، دعم فني سريع، ومتجر فخم لمنتجات حصرية. المتجر والفوتر من تنفيذ خليل.</p>
+      <div class="controls">
+        <a class="primary" href="store.php">ادخل المتجر الفخم</a>
+        <a class="btn" href="#contact">تواصل معنا</a>
       </div>
     </section>
-    <section class="site-section" id="features">
-      <div class="section-header">
-        <h2 class="section-title">ميزات المجتمع</h2>
-        <p class="section-subtitle">كل ما تحتاجه لتجربة ألعاب اجتماعية احترافية.</p>
+
+    <section class="card" id="features">
+      <h2 style="margin:0 0 8px">لماذا تختارنا؟</h2>
+      <p style="color:var(--muted);margin:0 0 12px">سيرفر مستقر، تحديثات دورية، ومجتمع محترم — كل ذلك ضمن تجربة لعب منظمة وجذابة.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <div style="flex:1;min-width:200px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px">✨ مودات حصرية</div>
+        <div style="flex:1;min-width:200px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px">🚚 تسليم سريع</div>
+        <div style="flex:1;min-width:200px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px">🛡 ضمان جودة</div>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="icon"><i class="fas fa-code"></i></div>
-          <h3>مودات حصرية</h3>
-          <p>العديد من المودات الحصرية والخاصة بخادمنا.</p>
-        </div>
-        <div class="feature-card">
-          <div class="icon"><i class="fas fa-map"></i></div>
-          <h3>مابات حصرية</h3>
-          <p>العديد من المابات الحصرية والخاصة بخادمنا.</p>
-        </div>
-        <div class="feature-card">
-          <div class="icon"><i class="fas fa-laptop"></i></div>
-          <h3>دعم الاجهزة الضعيفة</h3>
-          <p>نقدم لك افضل خدمة لجميع الاجهزة.</p>
-        </div>
-      </div>
-    </section>
-    <section class="site-section alt-bg" id="about">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">من نحن؟</h2>
-          <p class="section-subtitle">تعرف على القصة وراء مجتمعنا وما نسعى لتحقيقه.</p>
-        </div>
-        <div class="about-us-grid">
-          <div class="about-us-card">
-            <div class="icon">
-              <i class="fas fa-eye"></i>
-            </div>
-            <h3>رؤيتنا</h3>
-            <p>أن نكون المجتمع الرائد في عالم ألعاب الحياة الواقعية في الشرق الأوسط، حيث نقدم بيئة لعب مبتكرة، عادلة، وممتعة تجمع اللاعبين من كل مكان.</p>
-          </div>
-          <div class="about-us-card">
-            <div class="icon">
-              <i class="fas fa-bullseye"></i>
-            </div>
-            <h3>هدفنا</h3>
-            <p>توفير تجربة لعب أدوار غامرة وواقعية تتجاوز المألوف، مع التركيز على بناء مجتمع قوي ومترابط، ودعم الإبداع والتميز لدى جميع أعضائنا.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="site-section" id="rules">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">القوانين</h2>
-          <p class="section-subtitle">الالتزام بالقوانين هو أساس بيئة اللعب العادلة والممتعة.</p>
-        </div>
-        <div id="rules-container" class="rules-accordion">
-          <!-- القوانين تظهر ديناميكياً من JS -->
-        </div>
-      </div>
-    </section>
-    <section id="submissions" class="site-section submissions-section">
-      <h2 class="section-title">التقديمات المتاحة</h2>
-      <p class="section-subtitle">كن جزءاً من مجتمعنا وشارك في تطوير خادمنا</p>
-      <div class="submissions-container" id="submissions-container">
-        <!-- Submission cards will be injected here by JavaScript -->
-      </div>
-    </section>
-    <section class="site-section" id="team">
-      <div class="section-header">
-        <h2 class="section-title">فريق الإدارة</h2>
-        <p class="section-subtitle">مجموعة من أفضل اللاعبين والمدراء لخدمتك.</p>
-      </div>
-      <div class="team-grid" id="team-container">
-        <!-- الفريق يظهر ديناميكياً من JS -->
-      </div>
-    </section>
-    <section id="contact" class="site-section contact-section">
-      <div class="section-header">
-        <h2 class="section-title">تواصل معنا</h2>
-        <p class="section-subtitle">لأي استفسار أو اقتراح، فريقنا جاهز للرد عليك.</p>
-      </div>
-      <form class="contact-form" id="contact-form" method="post" action="contact_submit.php">
-        <div class="form-row">
-          <input type="text" class="form-input" name="name" placeholder="اسمك" required>
-          <input type="email" class="form-input" name="email" placeholder="البريد الإلكتروني" required>
-        </div>
-        <div class="form-group">
-          <textarea class="form-input" name="message" placeholder="رسالتك" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">إرسال</button>
-        <div id="contact-status" class="hidden"></div>
-      </form>
     </section>
   </main>
 
-  <!-- Submission Modal -->
-  <div id="submission-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
-      <div id="modal-body">
-        <!-- Form will be injected here -->
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>© <?php echo date("Y"); ?> Southland Roleplay. جميع الحقوق محفوظة.</p>
-      <div class="social-links">
-        <a href="https://discord.gg/g6RvPVfyNe" title="ديسكورد"><i class="fab fa-discord"></i></a>
-        <a href="https://x.com/futurelifen_rp?t=HoVWOINcxNzuh_D7Wuawfw&s=09" title="تويتر"><i class="fab fa-twitter"></i></a>
-        <a href="https://youtube.com/@fln_rp?si=40TUecMrkOHN23Q7" title="يوتيوب"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
+  <footer>
+    © <?php echo date('Y'); ?> SouthLand Roleplay — من تنفيذ خليل
   </footer>
-  <script src="js/script.js"></script>
 </body>
 </html>

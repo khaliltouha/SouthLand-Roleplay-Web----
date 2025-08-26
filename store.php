@@ -1,21 +1,37 @@
 <?php
-session_start();
-// تأكد أنك تملك ملف config.php يحتوي على متغير $allowed_emails كمصفوفة أو الاتصال بقاعدة بيانات
-// مثال: include 'config.php';
-include_once 'config.php'; // إذا لم يكن لديك هذا الملف، سننشئه لاحقاً
+// store.php - صفحة المتجر (ضعها في مجلد الويب لديك، مثال: htdocs/project/)
+// تعليمات سريعة: ضع هذا الملف وملف config.php في نفس المجلد، ثم افتح: http://localhost/yourproject/store.php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// helper لتتحقق من صلاحية الايميل
+// تضمين config بأمان: config.php يعيد مصفوفة $CONFIG أو يعرّف $allowed_emails
+$allowed_emails = [];
+if (file_exists(__DIR__ . '/config.php')) {
+    $cfg = include __DIR__ . '/config.php';
+    if (is_array($cfg)) {
+        // config.php قد يُرجع مصفوفة إعدادات
+        $allowed_emails = $cfg['allowed_emails'] ?? ($cfg['allowedEmails'] ?? []);
+        $db_config = $cfg['db'] ?? ($cfg['db_config'] ?? []);
+    } else {
+        // أو config.php قد يعرّف متغيرات مباشرة، فنتحقق من وجودها
+        if (isset($allowed_emails) && is_array($allowed_emails)) {
+            // يبقى كما هو
+        }
+    }
+}
+
+// دالة فحص صلاحية الإيميل (آمنة، تتجاهل الفراغ والاستخدام غير الصحيح)
 function is_allowed($email) {
     global $allowed_emails;
     if (empty($email)) return false;
     if (!isset($allowed_emails) || !is_array($allowed_emails)) return false;
-    return in_array(strtolower($email), array_map('strtolower', $allowed_emails));
+    return in_array(strtolower(trim($email)), array_map('strtolower', $allowed_emails));
 }
 
-$user = $_SESSION['user'] ?? null; // نتوقع $_SESSION['user']['email'] و username و avatar
-$can_add = $user && is_allowed($user['email']);
+$user = $_SESSION['user'] ?? null; // نتوقع keys: email, username, avatar
+$can_add = ($user && is_allowed($user['email'] ?? '')) ? true : false;
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -45,21 +61,21 @@ $can_add = $user && is_allowed($user['email']);
     .hero h1{font-size:2.6rem;margin:0 0 10px;color:#ffffff}
     .hero p{max-width:900px;margin:0 auto;color:var(--muted);font-weight:600}
 
-    .store-controls{display:flex;gap:15px;justify-content:center;margin:30px 20px}
+    .store-controls{display:flex;gap:15px;justify-content:center;margin:30px 20px;flex-wrap:wrap}
 
     .store-btn{background:linear-gradient(90deg,#2d6cdf 0%, #1246a3 100%);border:none;padding:12px 22px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(18,70,163,0.25);transition:transform .15s ease}
     .store-btn:active{transform:translateY(2px)}
 
-    .store-btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);}
+    .store-btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
     .store-wrapper{max-width:1100px;margin:20px auto;padding:20px;display:grid;grid-template-columns:1fr 340px;gap:30px}
 
     .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
-    .product-card{background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);box-shadow:0 10px 30px rgba(2,6,12,0.6)}
+    .product-card{background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);box-shadow:0 10px 30px rgba(2,6,12,0.6);display:flex;flex-direction:column}
     .product-card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
     .product-title{font-weight:800;margin:10px 0 4px}
-    .product-price{color:var(--gold);font-weight:800}
-    .product-desc{color:var(--muted);font-size:0.95rem}
+    .product-price{color:var(--gold);font-weight:800;margin-top:auto}
+    .product-desc{color:var(--muted);font-size:0.95rem;margin-top:6px}
 
     .sidebar{background:var(--card);padding:18px;border-radius:12px;height:max-content;border:1px solid rgba(255,255,255,0.03)}
     .sidebar h3{margin:0 0 12px}
@@ -121,8 +137,8 @@ $can_add = $user && is_allowed($user['email']);
           echo '<div class="product-card">';
           echo '<img src="'.htmlspecialchars($p['img']).'" alt="'.htmlspecialchars($p['title']).'">';
           echo '<div class="product-title">'.htmlspecialchars($p['title']).'</div>';
-          echo '<div class="product-price">'.htmlspecialchars($p['price']).' €</div>';
           echo '<div class="product-desc">'.htmlspecialchars($p['desc']).'</div>';
+          echo '<div class="product-price">'.htmlspecialchars($p['price']).' €</div>';
           echo '</div>';
         }
         ?>
