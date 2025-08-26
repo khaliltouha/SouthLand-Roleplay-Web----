@@ -1,0 +1,66 @@
+[
+  {
+    "id": "police-application",
+    "title": "تقديم على قسم الشرطة",
+    "image": "https://i.imgur.com/Tf9H9R2.jpeg",
+    "status": "open",
+    "webhook": "https://discord.com/api/webhooks/1384054944104976445/YRNj9G4RiRVT4DfgTDcxSJx2kiW17rYYvU6hJih1wlamsOK4GcUlwMp1RkjoM4IynPPb",
+    "questions": [
+      {
+        "id": "q1",
+        "text": "ما هو اسمك داخل اللعبة؟",
+        "type": "text",
+        "placeholder": "مثال: John Doe"
+      },
+      {
+        "id": "q2",
+        "text": "كم عمرك الحقيقي؟",
+        "type": "number"
+      },
+      {
+        "id": "q3",
+        "text": "هل قرأت جميع قوانين السيرفر بتمعن؟",
+        "type": "boolean"
+      },
+      {
+        "id": "q4",
+        "text": "لماذا تريد الانضمام إلى قسم الشرطة؟ (اكتب سبباً مقنعاً)",
+        "type": "textarea"
+      },
+      {
+        "id": "q5",
+        "text": "في حال مشاهدتك لزميل لك يخالف القوانين، ماذا ستفعل؟",
+        "type": "select",
+        "options": [
+          "أقوم بتنبيهه",
+          "أتجاهل الأمر",
+          "أقوم بتبليغ رتبة أعلى"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gang-application",
+    "title": "طلب إنشاء عصابة",
+    "image": "https://i.imgur.com/zIq3nGY.jpeg",
+    "status": "closed",
+    "webhook": "#ضع_رابط_ويبهوك_آخر_هنا",
+    "questions": [
+      {
+        "id": "gq1",
+        "text": "ما هو اسم عصابتك المقترح؟",
+        "type": "text"
+      },
+      {
+        "id": "gq2",
+        "text": "هل لديك خبرة سابقة في قيادة العصابات؟",
+        "type": "boolean"
+      },
+      {
+        "id": "gq3",
+        "text": "ما هي قصة العصابة وأهدافها؟",
+        "type": "textarea"
+      }
+    ]
+  }
+]

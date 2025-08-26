@@ -1,0 +1,17 @@
+[
+  {
+    "image": "https://i.pravatar.cc/150?u=serverowner",
+    "name": "عمر",
+    "role": "صاحب السيرفر"
+  },
+  {
+    "image": "https://i.pravatar.cc/150?u=admin",
+    "name": "خالد",
+    "role": "إداري"
+  },
+  {
+    "image": "https://i.pravatar.cc/150?u=developer",
+    "name": "سارة",
+    "role": "مبرمجة"
+  }
+]
