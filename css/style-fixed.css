@@ -235,7 +235,7 @@ nav {
     border-color: var(--text-color);
 }
 .btn-tertiary {
-    background-color: #264f8f; /* أزرق غامق مائل للفاتح */
+background-color: #A47148; /* بني فاتح محترم */
     color: #fff;
     border: 1px solid #264f8f;
     transition: background-color 0.3s ease, transform 0.2s ease;
