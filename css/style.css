@@ -44,7 +44,7 @@ nav {
   background: none;
 }
 .nav-links a {
-  color: #3E2C23;              /* نص بني غامق */
+  color: #2E2A26;              /* نص بني غامق */
   font-weight: 700;
   font-size: 1.08rem;
   padding: 0.5rem 0.9rem;
@@ -56,7 +56,7 @@ nav {
 .nav-links a:hover,
 .nav-links a.active-link {
   color: #fff;
-  background: rgba(139, 94, 60, 0.15); /* بني شفاف عند التحويم */
+  background: rgba(163, 201, 168, 0.2); /* أخضر ثانوي شفاف عند التحويم */
 }
 .nav-links a::after {
   content: '';
@@ -65,7 +65,7 @@ nav {
   right: 0;
   width: 0;
   height: 2px;
-  background: #8B5E3C; /* بني أساسي */
+  background: #A3C9A8; /* الأخضر الثانوي */
   transition: width 0.3s;
 }
 .nav-links a:hover::after,
@@ -111,23 +111,23 @@ nav {
   font-weight: 700;
   padding: 10px 18px;
   border-radius: 8px;
-  border: 1px solid #8B5E3C;
-  background: #8B5E3C;
-  color: #fff;
+  border: 1px solid #A3C9A8;
+  background: #A3C9A8; /* أخضر ثانوي */
+  color: #2E2A26;
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
   min-width: 160px;
   justify-content: center;
 }
 #discord-login:hover {
-  background: #A47148;
+  background: #89B48E;
   color: #fff;
 }
 .mobile-menu-toggle {
   display: none;
   background: none;
   border: none;
-  color: #3E2C23;
+  color: #F5F2EE;
   font-size: 2rem;
   cursor: pointer;
   margin-right: 1rem;
@@ -145,7 +145,7 @@ nav {
     top: 70px;
     right: 0;
     left: 0;
-    background: #F5EDE6; /* بني فاتح مائل للأبيض */
+    background: #F5F2EE; /* فاتح مائل للبيج */
     flex-direction: column;
     align-items: stretch;
     text-align: center;
