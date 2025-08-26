@@ -3,15 +3,15 @@
 
 /* --- NEW PROFESSIONAL DESIGN --- */
 :root {
-  --bg-color: #070c18;           /* خلفية أزرق غامق جداً - مأخوذ من الصورة */
-  --surface-color: #0d1a2f;      /* مربعات أزرق غامق ناعم */
-  --primary-color: #1565c0;      /* الأزرق الرئيسي */
-  --primary-hover: #1e88e5;      /* الأزرق عند التحويم */
-  --text-color: #e0e6ed;
-  --text-muted: #8899a6;
-  --border-color: #1c4f91;
-  --danger-color: #b02a2a;
-  --danger-hover: #e63946;
+  --bg-color: #3E2C23;          /* خلفية بني غامق فخم */
+  --surface-color: #F5EDE6;     /* بني فاتح مائل للأبيض - مريح للعين */
+  --primary-color: #8B5E3C;     /* البني الرئيسي (فخم ودافئ) */
+  --primary-hover: #A47148;     /* عند التحويم - درجة أفتح */
+  --text-color: #2E2A26;        /* نص غامق واضح */
+  --text-muted: #7A6F66;        /* نص ثانوي بني رمادي */
+  --border-color: #C9B8AA;      /* لون الحدود فاتح */
+  --danger-color: #8C3A2B;      /* أحمر بني (غامق) */
+  --danger-hover: #B54838;      /* أحمر بني فاتح عند التحويم */
   --font-family: 'Cairo', sans-serif;
   --header-height: 70px;
   --border-radius: 8px;
