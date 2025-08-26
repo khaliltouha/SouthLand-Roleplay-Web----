@@ -1,3 +1,12 @@
+<?php
+session_start();
+// تقدر تفعل السطر التالي لو حاب تربط بقاعدة بيانات أو ملف إعدادات
+// include_once 'config.php';
+
+// مثال لمصفوفة مستخدم وهمي للاختبار (امسحها بعد ما تفعّل نظام الدخول الحقيقي)
+// $_SESSION['user'] = ['username' => 'Khalil', 'avatar' => 'images/avatar.png', 'email' => 'youremail@gmail.com'];
+?>
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -27,12 +36,19 @@
       </ul>
     </nav>
     <div class="auth-area">
-      <button id="discord-login" class="btn"><i class="fab fa-discord"></i> <span>تسجيل دخول ديسكورد</span></button>
-      <div id="user-profile" class="hidden">
-        <img id="user-avatar" src="" alt="صورة المستخدم">
-        <span id="user-name"></span>
-        <button id="logout-btn" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
-      </div>
+      <?php if (isset($_SESSION['user'])): ?>
+        <!-- لو المستخدم متسجل يظهر ملفه الشخصي -->
+        <div id="user-profile">
+          <img id="user-avatar" src="<?php echo htmlspecialchars($_SESSION['user']['avatar'] ?? ''); ?>" alt="صورة المستخدم">
+          <span id="user-name"><?php echo htmlspecialchars($_SESSION['user']['username'] ?? ''); ?></span>
+          <form method="post" action="logout.php" style="display:inline;">
+            <button id="logout-btn" title="تسجيل الخروج"><i class="fas fa-sign-out-alt"></i></button>
+          </form>
+        </div>
+      <?php else: ?>
+        <!-- لو مش مسجل يظهر زر تسجيل دخول (اربطه بملف OAuth او صفحة تسجيل) -->
+        <a href="oauth.php" id="discord-login" class="btn"><i class="fab fa-discord"></i> <span>تسجيل دخول ديسكورد</span></a>
+      <?php endif; ?>
     </div>
   </div>
 </header>
@@ -44,7 +60,7 @@
         <p class="hero-subtitle">شبكة ساوث لاند هو احد افضل سيرفرات الحياة الواقعية المتواجدة داخل مجتمع اللعبة الذي يتميز بالسلاسة و المودات الحصرية</p>
         <div class="hero-buttons">
           <a href="#features" class="btn btn-primary">اكتشف الميزات</a>
-		  <a href="store.html" class="btn btn-tertiary">المتجر</a>
+          <a href="store.php" class="btn btn-tertiary">المتجر</a>
           <a href="#contact" class="btn btn-secondary">تواصل معنا</a>
         </div>
       </div>
@@ -128,7 +144,7 @@
         <h2 class="section-title">تواصل معنا</h2>
         <p class="section-subtitle">لأي استفسار أو اقتراح، فريقنا جاهز للرد عليك.</p>
       </div>
-      <form class="contact-form" id="contact-form">
+      <form class="contact-form" id="contact-form" method="post" action="contact_submit.php">
         <div class="form-row">
           <input type="text" class="form-input" name="name" placeholder="اسمك" required>
           <input type="email" class="form-input" name="email" placeholder="البريد الإلكتروني" required>
@@ -154,7 +170,7 @@
 
   <footer class="site-footer">
     <div class="footer-content">
-      <p>© 2025 Southland Roleplay. جميع الحقوق محفوظة.</p>
+      <p>© <?php echo date("Y"); ?> Southland Roleplay. جميع الحقوق محفوظة.</p>
       <div class="social-links">
         <a href="https://discord.gg/g6RvPVfyNe" title="ديسكورد"><i class="fab fa-discord"></i></a>
         <a href="https://x.com/futurelifen_rp?t=HoVWOINcxNzuh_D7Wuawfw&s=09" title="تويتر"><i class="fab fa-twitter"></i></a>
