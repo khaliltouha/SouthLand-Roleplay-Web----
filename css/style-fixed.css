@@ -3,21 +3,22 @@
 
 /* --- NEW PROFESSIONAL DESIGN --- */
 :root {
-  --bg-color: #3E2C23;          /* خلفية بني غامق فخم */
-  --surface-color: #F5F2EE;     /* سطح فاتح مائل للبيج */
-  --primary-color: #8B5E3C;     /* البني الرئيسي */
-  --primary-hover: #A47148;     /* بني أفتح عند التحويم */
+  --bg-color: #F5F5F5;        /* خلفية رمادي فاتح مريح */
+  --surface-color: #FFFFFF;   /* أسطح بيضاء نقية */
   
-  --secondary-color: #A3C9A8;   /* أخضر مريح ثانوي */
-  --secondary-hover: #89B48E;   /* أغمق قليلاً للتحويم */
+  --primary-color: #6D6D6D;   /* الرمادي الفخم (لون أساسي) */
+  --primary-hover: #555555;   /* رمادي أغمق للتحويم */
+  
+  --secondary-color: #A47148; /* بني فاتح محترم */
+  --secondary-hover: #8B5E3C; /* بني أغمق شوية للتحويم */
 
-  --text-color: #2E2A26;        /* نص أساسي */
-  --text-muted: #7A6F66;        /* نص ثانوي */
+  --text-color: #2E2E2E;      /* نص رمادي غامق */
+  --text-muted: #7A7A7A;      /* نص ثانوي أفتح */
+
+  --border-color: #DDDDDD;    /* حدود رمادية فاتحة */
   
-  --border-color: #C9B8AA;      /* حدود فاتحة */
-  
-  --danger-color: #8C3A2B;      /* أحمر بني */
-  --danger-hover: #B54838;      /* أحمر فاتح */
+  --danger-color: #8C3A2B;    /* أحمر بني أنيق */
+  --danger-hover: #B54838;    /* أفتح عند التحويم */
   
   --font-family: 'Cairo', sans-serif;
   --header-height: 70px;
