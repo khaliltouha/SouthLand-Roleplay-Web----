@@ -1,3 +1,135 @@
-<!DOCUMENT HTML>
-<h1> قسم اليقيسي  </h1>
-<h1> مميزات Legacy  </h1>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>قسم الإيديات - Southlande</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b1a2b;
+      color: #ffffff;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .highlight-light { color: #2f81f7; }
+    .highlight-dark { color: #1a3c74; }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #102a43;
+      padding: 20px;
+      border-radius: 12px;
+      width: 260px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+      color: #2f81f7;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .buy-btn {
+      display: inline-block;
+      background: linear-gradient(to right, #2563EB, #1E40AF);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+    
+    }
+
+    .buy-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><span class="highlight-light">Southland</span> <span class="highlight-dark">Life</span></h1>
+    <p>  مرحبا بك في قسم الليقاسي</p>
+  </header>
+
+  <div class="cards-container" id="cards">
+  </div>
+
+  <script>
+    const ids = [
+	{ number: Legacy, price: 6 },
+	{ number: Legacy++, price: 12 },
+
+    const currencies = {
+      USD: { name: 'دولار', rate: 1 },
+
+
+    const cardsContainer = document.getElementById('cards');
+
+    ids.forEach((id, index) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>ID ${id.number}</h3>
+        <div class="price" id="price-${index}">${id.price} $</div>
+        <select onchange="updatePrice(${id.price}, this.value, ${index})">
+          ${Object.entries(currencies).map(([code, cur]) =>
+            `<option value="${code}">${cur.name}</option>`
+          ).join('')}
+        </select>
+        <br />
+        <a href="#" class="buy-btn">شراء الآن</a>
+      `;
+      cardsContainer.appendChild(card);
+    });
+
+    function updatePrice(basePrice, currency, index) {
+      const rate = currencies[currency].rate;
+      const converted = (basePrice * rate).toFixed(2);
+      const priceEl = document.getElementById(`price-${index}`);
+      priceEl.innerText = `${converted} ${currencies[currency].name}`;
+    }
+  </script>
+
+</body>
+</html>
