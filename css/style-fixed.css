@@ -4,14 +4,21 @@
 /* --- NEW PROFESSIONAL DESIGN --- */
 :root {
   --bg-color: #3E2C23;          /* خلفية بني غامق فخم */
-  --surface-color: #F5EDE6;     /* بني فاتح مائل للأبيض - مريح للعين */
-  --primary-color: #8B5E3C;     /* البني الرئيسي (فخم ودافئ) */
-  --primary-hover: #A47148;     /* عند التحويم - درجة أفتح */
-  --text-color: #2E2A26;        /* نص غامق واضح */
-  --text-muted: #7A6F66;        /* نص ثانوي بني رمادي */
-  --border-color: #C9B8AA;      /* لون الحدود فاتح */
-  --danger-color: #8C3A2B;      /* أحمر بني (غامق) */
-  --danger-hover: #B54838;      /* أحمر بني فاتح عند التحويم */
+  --surface-color: #F5F2EE;     /* سطح فاتح مائل للبيج */
+  --primary-color: #8B5E3C;     /* البني الرئيسي */
+  --primary-hover: #A47148;     /* بني أفتح عند التحويم */
+  
+  --secondary-color: #A3C9A8;   /* أخضر مريح ثانوي */
+  --secondary-hover: #89B48E;   /* أغمق قليلاً للتحويم */
+
+  --text-color: #2E2A26;        /* نص أساسي */
+  --text-muted: #7A6F66;        /* نص ثانوي */
+  
+  --border-color: #C9B8AA;      /* حدود فاتحة */
+  
+  --danger-color: #8C3A2B;      /* أحمر بني */
+  --danger-hover: #B54838;      /* أحمر فاتح */
+  
   --font-family: 'Cairo', sans-serif;
   --header-height: 70px;
   --border-radius: 8px;
